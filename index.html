@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+    />
+    <title>AI 사이버 러너 – 바이러스 탈출</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&family=Orbitron:wght@500;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="app">
+      <div class="device">
+        <button id="btn-mute" class="mute-btn" type="button" aria-label="소리 끄기">🔊</button>
+        <!-- 캐릭터 선택 -->
+        <section id="select-screen" class="screen">
+          <div class="scanlines"></div>
+          <p class="kicker">AI NETWORK // ACCESS</p>
+          <h1 class="title">
+            AI 사이버 러너
+            <span>바이러스 탈출</span>
+          </h1>
+          <p class="subtitle">함께 달릴 AI 파트너를 선택하세요</p>
+
+          <div class="char-grid">
+            <button class="char-card" data-character="ppi" type="button">
+              <div class="char-art">
+                <img src="assets/ppi.png" alt="삐야" />
+              </div>
+              <h2>🐥 삐야</h2>
+              <p class="role">호기심 많은 AI 탐험가</p>
+              <p class="blurb">사이버 세상의 바이러스를 피해 달려보세요!</p>
+            </button>
+
+            <button class="char-card" data-character="oru" type="button">
+              <div class="char-art">
+                <img src="assets/oru.png" alt="오르" />
+              </div>
+              <h2>🐻‍❄️ 오르</h2>
+              <p class="role">듬직한 AI 수호자</p>
+              <p class="blurb">바이러스로부터 디지털 세상을 지켜주세요!</p>
+            </button>
+          </div>
+
+          <ul class="howto">
+            <li>← → 레인 이동</li>
+            <li>Space / ↑ 점프</li>
+            <li>🦠 피하기 · 💉 회복 · 💾 데이터</li>
+          </ul>
+        </section>
+
+        <!-- 플레이 -->
+        <section id="game-screen" class="screen hidden">
+          <header class="hud">
+            <div class="hud-block">
+              <span class="hud-label">SCORE</span>
+              <strong id="score">0</strong>
+            </div>
+            <div class="hud-block center">
+              <span class="hud-label" id="level-label">LEVEL 1</span>
+              <strong id="network-name">CYBER NETWORK</strong>
+            </div>
+            <div class="hud-block hearts" id="hearts">❤️❤️❤️❤️❤️</div>
+          </header>
+
+          <div id="stage" class="stage">
+            <div class="horizon"></div>
+            <div class="binary" aria-hidden="true">
+              <span>010101</span>
+              <span>DATA</span>
+              <span>AI</span>
+              <span>NETWORK</span>
+              <span>SYSTEM</span>
+            </div>
+            <div class="road">
+              <div class="grid"></div>
+              <div class="lane-line"></div>
+              <div class="lane-line"></div>
+            </div>
+            <div id="popups"></div>
+            <div id="entities"></div>
+            <div id="player" class="player">
+              <div class="player-shadow"></div>
+              <img id="player-img" src="assets/ppi.png" alt="플레이어" />
+            </div>
+          </div>
+
+          <div class="controls">
+            <button id="btn-left" type="button" tabindex="-1">◀ 왼쪽</button>
+            <button id="btn-jump" type="button" tabindex="-1">↑ 점프</button>
+            <button id="btn-right" type="button" tabindex="-1">오른쪽 ▶</button>
+          </div>
+        </section>
+
+        <!-- 게임 오버 -->
+        <div id="overlay" class="overlay hidden">
+          <div class="over-card">
+            <p class="over-kicker">SYSTEM FAILURE</p>
+            <h2>바이러스에 감염되었습니다!</h2>
+            <p class="over-label">최종 점수</p>
+            <p class="over-score" id="final-score">0점</p>
+            <p class="over-best">최고 기록 <span id="best-score">0</span>점</p>
+            <div class="over-actions">
+              <button id="btn-retry" type="button">다시 도전</button>
+              <button id="btn-change" class="ghost" type="button">캐릭터 변경</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="game.js"></script>
+    <!--
+      Audio (game-safe licenses):
+      BGM lobby: ZaninDevelopers - Cyberpunk Menu Music (CC0, OpenGameArt)
+      BGM game: Tarush Singhal - Cyberpunk Beauty (CC0, OpenGameArt)
+      SFX: Mixkit game sound effects (Mixkit SFX license, games allowed)
+    -->
+  </body>
+</html>
