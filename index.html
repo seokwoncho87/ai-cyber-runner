@@ -18,42 +18,95 @@
   <body>
     <div class="app">
       <div class="device">
-        <button id="btn-mute" class="mute-btn" type="button" aria-label="소리 끄기">🔊</button>
-        <!-- 캐릭터 선택 -->
+        <!-- 캐릭터 선택 / 설정 -->
         <section id="select-screen" class="screen">
           <div class="scanlines"></div>
-          <p class="kicker">AI NETWORK // ACCESS</p>
-          <h1 class="title">
-            AI 사이버 러너
-            <span>바이러스 탈출</span>
-          </h1>
-          <p class="subtitle">함께 달릴 AI 파트너를 선택하세요</p>
-
-          <div class="char-grid">
-            <button class="char-card" data-character="ppi" type="button">
-              <div class="char-art">
-                <img src="assets/ppi.png" alt="삐야" />
-              </div>
-              <h2>🐥 삐야</h2>
-              <p class="role">호기심 많은 AI 탐험가</p>
-              <p class="blurb">사이버 세상의 바이러스를 피해 달려보세요!</p>
-            </button>
-
-            <button class="char-card" data-character="oru" type="button">
-              <div class="char-art">
-                <img src="assets/oru.png" alt="오르" />
-              </div>
-              <h2>🐻‍❄️ 오르</h2>
-              <p class="role">듬직한 AI 수호자</p>
-              <p class="blurb">바이러스로부터 디지털 세상을 지켜주세요!</p>
-            </button>
+          <div class="select-top">
+            <p class="kicker">AI NETWORK // ACCESS</p>
+            <h1 class="title">
+              AI 사이버 러너
+              <span>바이러스 탈출</span>
+            </h1>
+            <p class="subtitle">함께 달릴 AI 파트너를 선택하세요</p>
+            <nav class="main-tabs" role="tablist" aria-label="메인 메뉴">
+              <button type="button" class="tab active" role="tab" aria-selected="true" data-tab="chars">
+                캐릭터
+              </button>
+              <button type="button" class="tab" role="tab" aria-selected="false" data-tab="settings">
+                설정
+              </button>
+            </nav>
           </div>
 
-          <ul class="howto">
-            <li>← → 레인 이동</li>
-            <li>Space / ↑ 점프</li>
-            <li>🦠 피하기 · 💉 회복 · 💾 데이터</li>
-          </ul>
+          <div id="panel-chars" class="tab-panel">
+            <div class="char-grid">
+              <button class="char-card" data-character="ppi" type="button">
+                <div class="char-art">
+                  <img src="assets/ppi.png" alt="삐야" />
+                </div>
+                <h2>🐥 삐야</h2>
+                <p class="role">호기심 많은 AI 탐험가</p>
+                <p class="blurb">사이버 세상의 바이러스를 피해 달려보세요!</p>
+                <ul class="traits"></ul>
+              </button>
+
+              <button class="char-card" data-character="oru" type="button">
+                <div class="char-art">
+                  <img src="assets/oru.png" alt="오르" />
+                </div>
+                <h2>🐻‍❄️ 오르</h2>
+                <p class="role">듬직한 AI 수호자</p>
+                <p class="blurb">바이러스로부터 디지털 세상을 지켜주세요!</p>
+                <ul class="traits"></ul>
+              </button>
+            </div>
+          </div>
+
+          <div id="panel-settings" class="tab-panel hidden">
+            <div id="settings-panel" class="settings-panel">
+              <div class="settings-head">
+                <p class="kicker" id="settings-kicker">OPTIONS</p>
+                <h2>설정</h2>
+                <p id="settings-note" class="setting-note hidden">게임이 잠시 멈췄어요</p>
+              </div>
+
+              <section class="setting-group">
+                <h3>소리</h3>
+                <label class="slider-row">
+                  <span>배경음악</span>
+                  <input id="bgm-volume" type="range" min="0" max="100" value="70" />
+                  <span id="bgm-volume-label">70%</span>
+                </label>
+                <label class="slider-row">
+                  <span>효과음</span>
+                  <input id="sfx-volume" type="range" min="0" max="100" value="80" />
+                  <span id="sfx-volume-label">80%</span>
+                </label>
+              </section>
+
+              <section class="setting-group">
+                <h3>키 조작</h3>
+                <p class="setting-hint">칸을 누른 다음, 사용할 키를 누르세요.</p>
+                <div class="key-row" data-action="left">
+                  <span>왼쪽</span>
+                  <div class="key-slots"></div>
+                </div>
+                <div class="key-row" data-action="right">
+                  <span>오른쪽</span>
+                  <div class="key-slots"></div>
+                </div>
+                <div class="key-row" data-action="jump">
+                  <span>점프</span>
+                  <div class="key-slots"></div>
+                </div>
+                <p id="key-error" class="key-error" role="status"></p>
+                <button id="btn-keys-reset" type="button" class="text-btn">기본 키로 되돌리기</button>
+                <p class="setting-hint">화면 아래 버튼으로도 이동하고 점프할 수 있어요.</p>
+              </section>
+
+              <button id="btn-settings-back" class="settings-back" type="button">게임으로 돌아가기</button>
+            </div>
+          </div>
         </section>
 
         <!-- 플레이 -->
@@ -67,7 +120,17 @@
               <span class="hud-label" id="level-label">LEVEL 1</span>
               <strong id="network-name">CYBER NETWORK</strong>
             </div>
-            <div class="hud-block hearts" id="hearts">❤️❤️❤️❤️❤️</div>
+            <div class="hud-side">
+              <div class="hearts" id="hearts">❤️❤️❤️</div>
+              <button id="btn-gear" class="gear-btn" type="button" aria-label="설정">
+                <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+                  <path
+                    fill="currentColor"
+                    d="M19.14 12.94c.04-.31.06-.63.06-.94s-.02-.63-.06-.94l2.03-1.58a.5.5 0 0 0 .12-.64l-1.92-3.32a.5.5 0 0 0-.6-.22l-2.39.96a7.03 7.03 0 0 0-1.63-.94l-.36-2.54a.5.5 0 0 0-.5-.42h-3.84a.5.5 0 0 0-.5.42l-.36 2.54c-.58.23-1.12.54-1.63.94l-2.39-.96a.5.5 0 0 0-.6.22L2.71 8.84a.5.5 0 0 0 .12.64l2.03 1.58c-.04.31-.06.63-.06.94s.02.63.06.94l-2.03 1.58a.5.5 0 0 0-.12.64l1.92 3.32c.13.22.39.31.6.22l2.39-.96c.51.4 1.05.71 1.63.94l.36 2.54c.05.24.26.42.5.42h3.84c.24 0 .45-.18.5-.42l.36-2.54c.58-.23 1.12-.54 1.63-.94l2.39.96c.22.09.47 0 .6-.22l1.92-3.32a.5.5 0 0 0-.12-.64l-2.03-1.58zM12 15.5A3.5 3.5 0 1 1 12 8.5a3.5 3.5 0 0 1 0 7z"
+                  />
+                </svg>
+              </button>
+            </div>
           </header>
 
           <div id="stage" class="stage">
@@ -86,7 +149,7 @@
             </div>
             <div id="popups"></div>
             <div id="entities"></div>
-            <div id="player" class="player">
+            <div id="player" class="player ppi">
               <div class="player-shadow"></div>
               <img id="player-img" src="assets/ppi.png" alt="플레이어" />
             </div>
@@ -112,6 +175,10 @@
               <button id="btn-change" class="ghost" type="button">캐릭터 변경</button>
             </div>
           </div>
+        </div>
+
+        <div id="settings-overlay" class="overlay hidden">
+          <div id="settings-overlay-slot"></div>
         </div>
       </div>
     </div>
